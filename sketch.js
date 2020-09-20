@@ -25,7 +25,7 @@ function setup() {
 	boxPart1.scale = 1.35
 	boxPart1.visible = false
 
-	dustbin = createSprite(650, height-145,115,20)
+	dustbin = createSprite(650, height-145,155,190)
 	dustbin.addImage(dustbinImg)
 
 	ball = createSprite(width/10, height-60,20,20);
@@ -67,9 +67,24 @@ function draw() {
   ball.body.position.x = ball.x
   drawSprites();
   //keyPressed();
-  ball.velocityY = 5
+  ball.velocityY = 10
   if(keyDown(UP_ARROW)){
 		ball.velocityX = 45
 		ball.velocityY = -45
 	}
+
+	if(isTouching(ball,dustbin)){
+		ball.addImage(dustbinImg)
+		dustbin.addImage(paperImg)
+		ball.velocityX = 0
+		ball.velocityY = 0
+		ball.isStatic = true
+	}
 }
+
+function isTouching(object1,object2){
+    if(object1.x - object2.x <= object2.width/2 + object1.width/2 
+      && object2.x - object1.x <= object2.width/2 + object1.width/2 
+      && object1.y - object2.y <= object2.height/2 + object1.height/2
+	  && object2.y - object1.y <= object2.height/2 + object1.height/2){}
+	}
